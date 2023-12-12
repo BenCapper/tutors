@@ -28,6 +28,9 @@
         <div>
           <a class="btn btn-xl bg-primary-500 text-white font-bold hover:scale-105 transition-all w-60" href="/gallery" target="_blank" rel="noreferrer">Gallery</a>
         </div>
+        <div>
+          <a class="btn btn-xl bg-primary-500 text-white font-bold hover:scale-105 transition-all w-60" href="/course-builder" target="_blank" rel="noreferrer">Course-Builder</a>
+        </div>
       </div>
     </div>
     <div class="w-full lg:w-1/2">
