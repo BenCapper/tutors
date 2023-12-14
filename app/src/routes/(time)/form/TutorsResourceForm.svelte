@@ -1,19 +1,21 @@
 <script lang="ts">
 
-    export let formData: {
-    courseName: string;
-    courseDescription: string;
-    numTopics: number;
-    topics: {
-      id: number;
-      title: string;
-      desc: string; 
-      icon: string;
-      numUnits: string;
-    }[];
-    topicName: string;
-    unitName: string;
-    resourceName: string;
+
+type Topic = {
+    id: number;
+    title: string;
+    desc: string;
+    icon: string;
+    numUnits: string;
+  };
+  
+export let formData: {
+      courseName: string;
+      courseDescription: string;
+      topics: Topic[];
+      topicName: string;
+      unitName: string;
+      resourceName: string;
   };
   
   </script>

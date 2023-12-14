@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../../../app.postcss";
   import TutorsShell from "$lib/ui/app-shells/TutorsShell.svelte";
-  import TutorsCourseForm from "./TutorsCourseForm.svelte";
+  import TutorsCourseForm from "./TutorsCourseForm.svelte"
 
 
   export let data: any;
