@@ -1,12 +1,18 @@
 <script lang="ts">
 
-
+type Unit = {
+      id: number;
+      title: string;
+      type: string;
+      resources: [];
+    };
+    
 type Topic = {
     id: number;
     title: string;
     desc: string;
     icon: string;
-    numUnits: string;
+    units: Unit[];
   };
   
 export let formData: {

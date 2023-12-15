@@ -9,15 +9,23 @@
     title: string;
     desc: string;
     icon: string;
-    numUnits: string;
+    units: Unit[];
   };
+
+  type Unit = {
+      id: number;
+      title: string;
+      type: string;
+      resources: [];
+    };
+
 
   export let topic: {
     id: number;
     title: string;
     desc: string;
     icon: string;
-    numUnits: string;
+    units: Unit[];
   };
 
 
@@ -29,7 +37,7 @@
     unitName: string;
     resourceName: string;
   };
-  
+
   const handleAddResource = () => {
       clickedUnit = true;
       console.log('New Unit Added - Show Resource Component', formData);

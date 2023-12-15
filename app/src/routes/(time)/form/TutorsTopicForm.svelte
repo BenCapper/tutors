@@ -1,12 +1,21 @@
 <script lang="ts">
     import TutorsUnitForm from "./TutorsUnitForm.svelte";
     
+
+
+    type Unit = {
+      id: number;
+      title: string;
+      type: string;
+      resources: [];
+    };
+
     type Topic = {
       id: number;
       title: string;
       desc: string;
       icon: string;
-      numUnits: string;
+      units: Unit[];
     };
 
     export let topic: {
@@ -14,7 +23,7 @@
       title: string;
       desc: string;
       icon: string;
-      numUnits: string;
+      units: Unit[];
     };
 
     export let formData: {
@@ -27,10 +36,17 @@
     };
     
     export let topicNumber: number;
+
     let clickedTopic = false;
   
   const handleAddUnit = () => {
+      formData.topics[topicNumber - 1].units = [
+        ...formData.topics[topicNumber - 1].units,
+        { id: formData.topics[topicNumber - 1].units.length + 1, title: '', type: '', resources: [] },
+      ];
       clickedTopic = true;
+      formData.topics[topicNumber - 1].title = topic.title
+      formData.topics[topicNumber - 1].desc = topic.desc
       console.log('New Topic Added - Show Unit Component', formData);
     };
   </script>
@@ -45,14 +61,14 @@
             <div class="sm:w-1/3 pr-4">
               <label for="topic-name" class="block text-sm font-medium leading-6 text-gray-900">Topic {topicNumber} Name</label>
               <div class="mt-2">
-                <input type="text" name="topic-name" id="topic-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input type="text" name="topic-name" id="topic-name" bind:value={topic.title} class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               </div>
             </div>
           
             <div class="sm:w-2/3">
-              <label for="topic-desc" class="block text-sm font-medium leading-6 text-gray-900">Topic Description</label>
+              <label for="topic-desc" class="block text-sm font-medium leading-6 text-gray-900">Topic {topicNumber} Description</label>
               <div class="mt-2">
-                <input type="text" name="topic-desc" id="topic-desc" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <input type="text" name="topic-desc" id="topic-desc" bind:value={topic.desc} class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
               </div>
             </div>
           </div>
