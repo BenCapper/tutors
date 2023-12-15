@@ -37,11 +37,13 @@
   };
 
   function handleFileSelect(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    if (file) {
+    const inputElement = event.target as HTMLInputElement;
+
+    if (inputElement && inputElement.files && inputElement.files.length > 0) {
+      const file = inputElement.files[0];
       uploadedImageURL = URL.createObjectURL(file);
     }
-  }
+}
 </script>
 
 <form>
@@ -76,9 +78,16 @@
           <input type="file" id="file-upload" class="hidden" accept="image/*" on:change={handleFileSelect} />
 
           <div class="sm:w-1/3 pr-4">
-            <button type="button"
-                    class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    on:click={() => document.getElementById('file-upload').click()}>
+            <button
+              type="button"
+              class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              on:click={() => {
+                const fileUploadElement = document.getElementById('file-upload');
+                if (fileUploadElement) {
+                  fileUploadElement.click();
+                }
+              }}
+            >
               Upload Course Icon
             </button>
           </div>
