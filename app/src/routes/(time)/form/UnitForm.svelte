@@ -24,22 +24,22 @@
 
 
   const handleAddResource = () => {
-
-      const newResource: Resource = {
-        id: formData.topics[topic.id].units[unit.id].resources.length,
-        type: "",
-      };
-
-      formData.topics[topic.id].units[unit.id].resources = [
-        ...formData.topics[topic.id].units[unit.id].resources,
-        newResource,
-      ];
-      console.log('New Unit Added - Show Resource Component', formData);
+    const newResource: Resource = {
+      id: formData.topics[topic.id].units[unit.id].resources.length,
+      type: "",
     };
+    formData.topics[topic.id].units[unit.id].resources = [
+      ...formData.topics[topic.id].units[unit.id].resources,
+      newResource,
+    ];
+    console.log('Resources', formData.topics[topic.id].units[unit.id].resources);
+  };
 
   const handleDeleteResource = (id: number) => {
-
-  };
+    formData.topics[topic.id].units[unit.id].resources = formData.topics[topic.id].units[unit.id].resources
+    .filter(resource => resource.id !== id)
+    .map((resource, index) => ({ ...resource, id: index }));
+    };
   </script>
 
 <form>

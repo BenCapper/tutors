@@ -18,7 +18,7 @@
       ...formData.topics,
       { id: formData.topics.length, title: '', desc: '', icon: '', units: [] },
     ];
-    console.log(formData)
+    console.log('Form Data:', formData)
   };
 
   function handleFileSelect(event: Event) {

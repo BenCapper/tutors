@@ -31,7 +31,7 @@
       newUnit,
     ];
 
-    console.log(formData);
+    console.log('Topics:', formData.topics);
   };
 </script>
   

@@ -14,7 +14,7 @@
   let resources: String[] = ["Web", "Github", "Archive", "Lab", "Presentation", "Note", "Video"];
 
   const handleDeleteResource = () => {
-    onDelete(resource.id - 1);
+    onDelete(resource.id);
     console.log(formData);
   };
 </script>
