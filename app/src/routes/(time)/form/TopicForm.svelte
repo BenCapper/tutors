@@ -3,37 +3,40 @@
   import type { Unit, Topic } from "./types";
 
   export let topic: {
-      id: number;
-      title: string;
-      desc: string;
-      icon: string;
-      units: Unit[];
+    id: number;
+    title: string;
+    desc: string;
+    icon: string;
+    units: Unit[];
   };
 
   export let formData: {
-      courseName: string;
-      courseDescription: string;
-      topics: Topic[];
-      topicName: string;
-      unitName: string;
-      resourceName: string;
+    courseName: string;
+    courseDescription: string;
+    topics: Topic[];
+    topicName: string;
+    unitName: string;
+    resourceName: string;
   };
-    
+
   export let topicNumber: number;
 
-  let clickedTopic = false;
-  
   const handleAddUnit = () => {
-      formData.topics[topicNumber - 1].units = [
-        ...formData.topics[topicNumber - 1].units,
-        { id: formData.topics[topicNumber - 1].units.length + 1, title: '', type: '', resources: [] },
-      ];
-      formData.topics[topicNumber - 1].title = topic.title
-      formData.topics[topicNumber - 1].desc = topic.desc
-      clickedTopic = true;
-      console.log('New Topic Added - Show Unit Component', formData);
+    const newUnit: Unit = {
+      id: formData.topics[topicNumber - 1].units.length + 1,
+      title: "",
+      type: "",
+      resources: [],
     };
-  </script>
+
+    formData.topics[topicNumber - 1].units = [
+      ...formData.topics[topicNumber - 1].units,
+      newUnit,
+    ];
+
+    console.log(formData);
+  };
+</script>
   
   <form>
     <div class="space-y-12">
@@ -81,20 +84,23 @@
   
 
   
-        <!-- Third Row: Conditionally show component  -->
-        {#if clickedTopic}
+        <!-- Third Row: Conditionally show multiple UnitForm components -->
+        {#each formData.topics[topicNumber - 1].units as unit (unit.id)}
           <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8">
-            <UnitForm {formData} topic={topic} topicNumber={topicNumber} />
+            <UnitForm {formData} {unit} topic={topic} topicNumber={topicNumber} />
           </div>
-        {/if}
+        {/each}
         
-
-        <!-- Fourth Row: Add Topic Button -->
+        <!-- Fourth Row: Add Unit Button -->
         <div class="mt-8 flex gap-x-6">
-            <button type="button" on:click={handleAddUnit} class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white 
-            shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
-            focus-visible:outline-indigo-600">Add Unit</button>
-        </div>
-      </div>
-    </div>
-  </form>
+          <button
+            type="button"
+            on:click={handleAddUnit}
+            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white 
+                  shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
+                  focus-visible:outline-indigo-600"
+          >
+            Add Unit
+          </button>
+  </div>
+</form>
