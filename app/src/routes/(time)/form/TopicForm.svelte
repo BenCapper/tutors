@@ -20,14 +20,14 @@
 
   const handleAddUnit = () => {
     const newUnit: Unit = {
-      id: formData.topics[topicNumber - 1].units.length + 1,
+      id: formData.topics[topic.id].units.length,
       title: "",
       type: "",
       resources: [],
     };
 
-    formData.topics[topicNumber - 1].units = [
-      ...formData.topics[topicNumber - 1].units,
+    formData.topics[topic.id].units = [
+      ...formData.topics[topic.id].units,
       newUnit,
     ];
 
@@ -37,13 +37,13 @@
   
   <form>
     <div class="space-y-12">
-      <div class="border-gray-900/10 pb-12">
+      <div class="border border-gray-900 p-6 rounded-md">
   
         <!-- First Row: Course Name and Description -->
         <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
           <div class="flex flex-col sm:flex-row">
             <div class="sm:w-1/3 pr-4">
-              <label for="topic-name" class="block text-sm font-medium leading-6 text-gray-900">Topic {topicNumber} Name</label>
+              <label for="topic-name" class="block text-sm font-medium leading-6 text-gray-900">Topic {topic.id + 1} Name</label>
               <div class="mt-2">
                 <input type="text" name="topic-name" id="topic-name" bind:value={topic.title} class="block w-full rounded-md border-0 py-1.5 
                 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
@@ -52,7 +52,7 @@
             </div>
           
             <div class="sm:w-2/3">
-              <label for="topic-desc" class="block text-sm font-medium leading-6 text-gray-900">Topic {topicNumber} Description</label>
+              <label for="topic-desc" class="block text-sm font-medium leading-6 text-gray-900">Topic {topic.id + 1} Description</label>
               <div class="mt-2">
                 <input type="text" name="topic-desc" id="topic-desc" bind:value={topic.desc} class="block w-full rounded-md border-0 py-1.5 
                 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
@@ -63,7 +63,7 @@
         </div>
   
         <!-- Second Row: Upload Icon and Text -->
-        <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+        <div class="mt-2 mb-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
           <div class="flex flex-col sm:flex-row">
             <div class="sm:w-1/3 pr-4">
               <button type="button" class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 
@@ -82,7 +82,7 @@
 
   
         <!-- Third Row: Conditionally show multiple UnitForm components -->
-        {#each formData.topics[topicNumber - 1].units as unit (unit.id)}
+        {#each formData.topics[topic.id].units as unit (unit.id)}
           <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8">
             <UnitForm {formData} {unit} topic={topic} topicNumber={topicNumber} />
           </div>

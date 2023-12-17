@@ -10,9 +10,6 @@ export type FormData = {
     courseName: string;
     courseDescription: string;
     topics: Topic[];
-    topicName: string;
-    unitName: string;
-    resourceName: string;
   };
 
 export type Unit = {

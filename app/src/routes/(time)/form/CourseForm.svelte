@@ -4,11 +4,11 @@
 
 
   let formData: FormData = {
-    courseName: '',
-    courseDescription: '',
-    topics: [
-      { id: 1, title: '', desc: '', icon: '', units: [] },
-    ],
+      courseName: '',
+      courseDescription: '',
+      topics: [
+          { id: 0, title: '', desc: '', icon: '', units: [] },
+      ]
   };
 
   let uploadedImageURL: string;
@@ -16,7 +16,7 @@
   const handleAddTopic = () => {
     formData.topics = [
       ...formData.topics,
-      { id: formData.topics.length + 1, title: '', desc: '', icon: '', units: [] },
+      { id: formData.topics.length, title: '', desc: '', icon: '', units: [] },
     ];
     console.log(formData)
   };
@@ -34,7 +34,7 @@
 <form>
   <div class="space-y-12">
     <!-- Course Details -->
-    <div class="border-b border-gray-900/10 pb-12">
+    <div class="border border-gray-900 p-6">
       <h2 class="text-base font-semibold leading-7 text-gray-900">Course Details</h2>
       <p class="mt-1 text-sm leading-6 text-gray-600">Generate a custom course structure</p>
 
@@ -113,3 +113,4 @@
           focus-visible:outline-indigo-600">Add Topic</button>
         </div>
 </form>
+
