@@ -1,9 +1,8 @@
 <script lang="ts">
   import ResourceForm from "./ResourceForm.svelte";
-  import type { Unit, Topic } from "./types";
+  import type { Unit, Topic, Resource } from "./types";
     
   let clickedUnit = false;
-
 
   export let topic: {
     id: number;
@@ -18,16 +17,23 @@
     courseName: string;
     courseDescription: string;
     topics: Topic[];
-    topicName: string;
-    unitName: string;
-    resourceName: string;
   };
 
   export let topicNumber: Number;
   export let unit: Unit;
 
+
   const handleAddResource = () => {
-      clickedUnit = true;
+
+      const newResource: Resource = {
+        id: formData.topics[topic.id - 1].units[unit.id - 1].resources.length + 1,
+        type: "",
+      };
+
+      formData.topics[topic.id - 1].units[unit.id - 1].resources = [
+        ...formData.topics[topic.id - 1].units[unit.id - 1].resources,
+        newResource,
+      ];
       console.log('New Unit Added - Show Resource Component', formData);
     };
   </script>
@@ -40,13 +46,12 @@
       focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
 
 
-      <!-- Third Row: Conditionally show component  -->
-      {#if clickedUnit}
+      <!-- Third Row: Conditionally show multiple UnitForm components -->
+      {#each formData.topics[topic.id - 1].units[unit.id - 1].resources as resource (resource.id)}
         <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8">
-          <ResourceForm {formData} />
+          <ResourceForm {formData} {topic} {unit} {resource}/>
         </div>
-      {/if}
-      
+      {/each}
 
       <!-- Fourth Row: Add Topic Button -->
       <div class="mt-8 flex gap-x-6">

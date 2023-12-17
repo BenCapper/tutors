@@ -19,5 +19,10 @@ export type Unit = {
     id: number;
     title: string;
     type: string;
-    resources: [];
+    resources: Resource[];
   };
+
+export type Resource = {
+    id: number;
+    type: string;
+}

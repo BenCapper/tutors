@@ -6,10 +6,9 @@
   let formData: FormData = {
     courseName: '',
     courseDescription: '',
-    topics: [],
-    topicName: '',
-    unitName: '',
-    resourceName: '',
+    topics: [
+      { id: 1, title: '', desc: '', icon: '', units: [] },
+    ],
   };
 
   let uploadedImageURL: string;
