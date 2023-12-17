@@ -1,20 +1,6 @@
 <script lang="ts">
-  import TutorsResourceTypeForm from "./TutorsResourceTypeForm.svelte";
-
-  type Unit = {
-    id: number;
-    title: string;
-    type: string;
-    resources: [];
-  };
-
-  type Topic = {
-    id: number;
-    title: string;
-    desc: string;
-    icon: string;
-    units: Unit[];
-  };
+  import ResourceTypeForm from "./ResourceTypeForm.svelte";
+  import type { Unit, Topic } from "./types";
 
   export let formData: {
     courseName: string;
@@ -39,6 +25,6 @@
     {/each}
   </select>
   {#if formData.resourceName}
-    <TutorsResourceTypeForm {formData} />
+    <ResourceTypeForm {formData} />
   {/if}
 </div>
