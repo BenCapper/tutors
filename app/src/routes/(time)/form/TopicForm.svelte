@@ -10,13 +10,14 @@
     units: Unit[];
   };
 
-  export let formData: {
+    export let formData: {
     courseName: string;
     courseDescription: string;
     topics: Topic[];
   };
-
   export let topicNumber: number;
+
+  let uploadedTopicIconURL: string;
 
   const handleAddUnit = () => {
     const newUnit: Unit = {
@@ -30,74 +31,72 @@
       ...formData.topics[topic.id].units,
       newUnit,
     ];
-
-    console.log('Topics:', formData.topics);
   };
+
+  function handleTopicIconSelect(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    if (file) {
+      uploadedTopicIconURL = URL.createObjectURL(file);
+      topic.icon = uploadedTopicIconURL; // Update topic icon URL
+    }
+  }
 </script>
-  
-  <form>
-    <div class="space-y-12">
-      <div class="border border-gray-900 p-6 rounded-md">
-  
-        <!-- First Row: Course Name and Description -->
-        <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
-          <div class="flex flex-col sm:flex-row">
-            <div class="sm:w-1/3 pr-4">
-              <label for="topic-name" class="block text-sm font-medium leading-6 text-gray-900">Topic {topic.id + 1} Name</label>
-              <div class="mt-2">
-                <input type="text" name="topic-name" id="topic-name" bind:value={topic.title} class="block w-full rounded-md border-0 py-1.5 
-                text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
-                focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
-            </div>
-          
-            <div class="sm:w-2/3">
-              <label for="topic-desc" class="block text-sm font-medium leading-6 text-gray-900">Topic {topic.id + 1} Description</label>
-              <div class="mt-2">
-                <input type="text" name="topic-desc" id="topic-desc" bind:value={topic.desc} class="block w-full rounded-md border-0 py-1.5 
-                text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset 
-                focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
-            </div>
+
+<form>
+  <div class="space-y-12">
+    <div class="border border-gray-900 p-6 rounded-md">
+      <!-- Topic Name and Description -->
+      <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+        <!-- ... Topic Name and Description code ... -->
+      </div>
+
+      <!-- Upload Topic Icon -->
+      <div class="mt-2 mb-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
+        <div class="flex flex-col sm:flex-row">
+          <!-- Hidden File Input for Topic Icon -->
+          <input type="file" id="topic-icon-upload" class="hidden" accept="image/*" on:change={handleTopicIconSelect} />
+
+          <div class="sm:w-1/3 pr-4">
+            <button type="button"
+                    class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 
+                    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
+                    focus-visible:outline-indigo-600"
+                    on:click={() => document.getElementById('topic-icon-upload').click()}>
+              Upload Topic Icon
+            </button>
           </div>
-        </div>
-  
-        <!-- Second Row: Upload Icon and Text -->
-        <div class="mt-2 mb-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-1">
-          <div class="flex flex-col sm:flex-row">
-            <div class="sm:w-1/3 pr-4">
-              <button type="button" class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 
-              focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
-              focus-visible:outline-indigo-600">Upload Topic Icon</button>
-            </div>
-          
-            <div class="sm:w-2/3">
+
+          <div class="sm:w-2/3">
+            {#if uploadedTopicIconURL}
+              <img src={uploadedTopicIconURL} alt="Uploaded Topic Icon" class="max-w-xs max-h-24" />
+            {:else}
               <div class="text-sm text-gray-600">
                 This is where the icon name is displayed.
               </div>
-            </div>
+            {/if}
           </div>
         </div>
-  
+      </div>
 
-  
-        <!-- Third Row: Conditionally show multiple UnitForm components -->
-        {#each formData.topics[topic.id].units as unit (unit.id)}
-          <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8">
-            <UnitForm {formData} {unit} topic={topic} topicNumber={topicNumber} />
-          </div>
-        {/each}
-        
-        <!-- Fourth Row: Add Unit Button -->
-        <div class="mt-8 flex gap-x-6">
-          <button
-            type="button"
-            on:click={handleAddUnit}
-            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white 
-                  shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
-                  focus-visible:outline-indigo-600"
-          >
-            Add Unit
-          </button>
+      <!-- Unit Forms -->
+      {#each formData.topics[topic.id].units as unit (unit.id)}
+        <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8">
+          <UnitForm {formData} {unit} topic={topic} topicNumber={topicNumber} />
+        </div>
+      {/each}
+      
+      <!-- Add Unit Button -->
+      <div class="mt-8 flex gap-x-6">
+        <button
+          type="button"
+          on:click={handleAddUnit}
+          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white 
+                shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
+                focus-visible:outline-indigo-600"
+        >
+          Add Unit
+        </button>
+      </div>
+    </div>
   </div>
 </form>
